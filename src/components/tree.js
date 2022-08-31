@@ -4,48 +4,25 @@ import "../App.css";
 
 const Tree = (props) => {
   const [state, setState] = useState({ treeData: [] });
-  // constructor(props){
-  //   super(props);
-  //   this.state = {
-  //     treeData: []
-  //   }
-  // }
 
   useEffect(() => {
     const { data } = props;
     if (data) {
-      setState({...state, treeData: treeInitialization(data) });
+      setState({ ...state, treeData: treeInitialization(data) });
     }
-  },[]);
-
-  // componentDidMount() {
-  //     const { data } = this.props;
-  //     if(data)
-  //       this.setState({ treeData: this.treeInitialization(data) })
-  // }
+  }, []);
 
   const handleNodeIconClick = (node) => {
     node.isExpanded = !node.isExpanded;
-    setState({ ...state,treeData: state.treeData });
+    setState({ ...state, treeData: state.treeData });
     const { onIconClick } = props;
     onIconClick(node);
   };
-  // on tree node icon click, handle expand and collapse of tree
-  // handleNodeIconClick = node => {
-  //   node.isExpanded = !node.isExpanded;
-  //   this.setState({treeData: this.state.treeData});
-  //   const { onIconClick } = this.props;
-  //   onIconClick(node)
-  // }
+
   const handleNodeTitleClick = (node) => {
     const { onTitleClick } = props;
     onTitleClick(node);
   };
-  // on tree node title clcik
-  // handleNodeTitleClick = node => {
-  //   const { onTitleClick } = this.props;
-  //   onTitleClick(node)
-  // }
 
   // tree data initialization
   const treeInitialization = (treeData, path = []) => {
@@ -135,7 +112,7 @@ const Tree = (props) => {
     // to copy node in localstorage
     localStorage.setItem("draggedNode", JSON.stringify(node));
     // to paste node at another place
-    await setState({ ...state,draggedNode: node });
+    await setState({ ...state, draggedNode: node });
     const { onDrag } = props;
     onDrag(node);
   };
@@ -155,7 +132,8 @@ const Tree = (props) => {
     if (draggedNode && Object.keys(draggedNode).length && node.children) {
       updatedTree = removeNodeAtPath(treeData, draggedNode);
       setState({
-        ...state,treeData: addNodeAtPath(updatedTree, draggedNode, node.path),
+        ...state,
+        treeData: addNodeAtPath(updatedTree, draggedNode, node.path),
         draggedNode: {},
       });
     }
@@ -168,7 +146,8 @@ const Tree = (props) => {
     ) {
       localStorage.removeItem("draggedNode");
       setState({
-        ...state,treeData: addNodeAtPath(
+        ...state,
+        treeData: addNodeAtPath(
           treeData,
           draggedNodeFromLocalStorage,
           node.path
