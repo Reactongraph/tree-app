@@ -7,8 +7,9 @@ const Tree = (props) => {
 
   useEffect(() => {
     const { data } = props;
+    const treeData = treeInitialization(data);
     if (data) {
-      setState({ ...state, treeData: treeInitialization(data) });
+      setState({ ...state, treeData });
     }
   }, []);
 
@@ -161,8 +162,7 @@ const Tree = (props) => {
   const renderTree = (treeData) => {
     return (
       <ul>
-        {treeData &&
-          treeData.length > 0 &&
+        {Array.isArray(treeData) &&
           treeData.map((node) => {
             const { isExpanded, title, children, path } = node;
             return (
