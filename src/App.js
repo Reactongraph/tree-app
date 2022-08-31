@@ -1,15 +1,10 @@
-import React from 'react';
-import './App.css';
-import Tree from './components/tree';
-import { treeData } from './utils/constants';
+import React from "react";
+import Tree from "./components/tree";
+import { treeData } from "./utils/constants";
+import "./App.css";
 
-class App extends React.Component {
-
-  render(){
-    return (
-      <Tree data={treeData}></Tree>
-    );
-  }
-}
+const App = () => {
+  return <Tree data={treeData}></Tree>;
+};
 
 export default App;
